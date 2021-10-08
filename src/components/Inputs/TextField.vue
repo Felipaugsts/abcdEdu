@@ -1,0 +1,68 @@
+<template>
+  <v-text-field
+    class="field"
+    dense
+    v-model="field.text"
+    :label="field.label"
+    :placeholder="field.placeholder"
+    :type="field.type"
+    outlined
+    :rules="nameRules"
+    :prepend-inner-icon="field.inner"
+  ></v-text-field>
+</template>
+
+<script>
+export default {
+  name: "txt",
+  props: ["fields"],
+  data() {
+    return {
+      field: this.fields,
+      nameRules: [(v) => !!v || "Este campo é obrigatório"],
+    };
+  },
+
+  created() {
+    this.$emit("fields", this.field);
+  },
+};
+</script>
+
+<style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,400;1,300&display=swap");
+
+.v-text-field >>> label {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 700;
+  margin-left: 10px;
+}
+.v-text-field >>> :placeholder-shown {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 545;
+}
+
+::v-deep.v-input--dense > .v-input__control > .v-input__slot {
+  margin-bottom: 0px !important;
+  border-radius: 5px;
+}
+::v-deep.v-input .v-label {
+  color: #47cdff !important;
+}
+
+::v-deep.v-text-field fieldset,
+.v-text-field.v-input--has-state fieldset {
+  border: 1px solid #47cdff !important;
+  height: 55px;
+  border-radius: 12px;
+}
+.v-text-field >>> .v-text-field__details {
+  font-family: Inter;
+  color: rgb(238, 155, 155);
+  font-size: 16px;
+  margin-top: 12px;
+  font-weight: 600;
+}
+</style>

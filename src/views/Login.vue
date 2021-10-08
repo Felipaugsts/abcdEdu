@@ -8,6 +8,9 @@
           </v-card-title>
 
           <v-form class="pa-6" ref="form">
+            <h5 class="ml-2 font-weight-light red--text" v-if="error">
+              Tente novamente mais tarde
+            </h5>
             <TextField :fields="Email" class="mt-3" />
             <TextField :fields="Senha" class="mt-4" />
           </v-form>
@@ -37,7 +40,6 @@ import Button from "../components/Button/Button.vue";
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 export default {
-  
   name: "Login",
   components: {
     TextField,
@@ -46,13 +48,14 @@ export default {
   data() {
     return {
       loader: false,
+      error: false,
       Email: {
         label: "Email",
-        text: "teste@gmail.com",
+        text: "",
       },
       Senha: {
         label: "Senha",
-        text: "teste123",
+        text: "",
         type: "password",
       },
     };
@@ -74,12 +77,14 @@ export default {
           })
           .catch((error) => {
             const errorCode = error.code;
+            this.loader = false;
+
             console.log("errorCode", errorCode);
+            this.error = true;
           });
       }
     },
   },
-  
 };
 </script>
 <style scoped>

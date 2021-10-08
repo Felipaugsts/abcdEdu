@@ -5,8 +5,6 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import * as firebase from "firebase/app";
-  
-
 
 var firebaseConfig = {
   apiKey: "AIzaSyA84AEy8PeTaZsyl1Ja_f-UDGhwRoS08xI",

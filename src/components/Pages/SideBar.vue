@@ -1,5 +1,5 @@
 <template>
-  <v-layout>
+  <v-layout wrap>
     <v-flex class="white">
       <v-card class="card mt-8 d-flex flex-column align-center" flat>
         <v-img src="../../assets/logo.png" class="logo" />
@@ -29,6 +29,10 @@
         </v-list-item-group>
       </v-card>
     </v-flex>
+
+    <v-btn @click="logout()" text elevation="0" class="button pa-7"
+      ><v-icon x-large>mdi-logout</v-icon></v-btn
+    >
   </v-layout>
 </template>
 
@@ -44,6 +48,11 @@ export default {
         { text: "Configurações", icon: "icon_settings" },
       ],
     };
+  },
+  methods: {
+    logout() {
+      this.$store.commit("CLEAR_USER_DATA");
+    },
   },
 };
 </script>
@@ -68,5 +77,10 @@ export default {
   line-height: 37px;
   letter-spacing: 0em;
   text-align: left;
+}
+.button {
+  position: absolute;
+  bottom: 90px;
+  left: 130px;
 }
 </style>

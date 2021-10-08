@@ -1,7 +1,7 @@
 <template>
   <v-card class="card d-flex align-center">
     <v-flex lg4 class="field pl-7 mt-10">
-      <TextField :fields="search" />
+      <template> <slot name="header" class="ml-2"></slot></template>
     </v-flex>
 
     <v-flex lg4 class="ml-8 mr-10">
@@ -20,20 +20,13 @@
   </v-card>
 </template>
 <script>
-import TextField from "../../Inputs/TextField.vue";
 import Button from "../../Button/Button.vue";
 export default {
   components: {
-    TextField,
     Button,
   },
   data() {
-    return {
-      search: {
-        label: "Pesquisar",
-        text: "",
-      },
-    };
+    return {};
   },
   methods: {
     action() {

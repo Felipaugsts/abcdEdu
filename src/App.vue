@@ -1,13 +1,9 @@
 <template>
   <v-app>
-    <v-layout>
-      <v-flex lg3 v-if="this.$store.state.token">
-        <Sidebar />
-      </v-flex>
-      <v-flex>
-        <router-view />
-      </v-flex>
-    </v-layout>
+    <Sidebar v-if="this.$store.state.token" />
+    <v-main>
+      <router-view />
+    </v-main>
   </v-app>
 </template>
 

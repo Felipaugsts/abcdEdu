@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <div>
     <v-layout class="grey lighten-4 pa-6">
       <v-flex class="d-flex justify-center align-center">
         <v-card class="card">
@@ -52,7 +52,7 @@
         </v-card>
       </v-flex>
     </v-layout>
-  </v-app>
+  </div>
 </template>
 <script>
 import Button from "@/components/Button/Button.vue";

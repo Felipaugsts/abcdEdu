@@ -6,8 +6,10 @@
 
     <v-flex lg4 class="ml-8 mr-10">
       <p class="filterBy">Filtrar por:</p>
-      <v-btn class="filterByBtn primary"> Nome</v-btn>
-      <v-btn class="filterByBtn">Ano</v-btn>
+      <div class="d-flex">
+        <v-btn class="filterByBtn primary"> Nome</v-btn>
+        <v-btn class="filterByBtn">Ano</v-btn>
+      </div>
     </v-flex>
     <v-flex lg4 class="ml-16">
       <Button
@@ -37,7 +39,7 @@ export default {
 </script>
 <style scoped>
 .card {
-  height: 126px;
+  max-height: 126px;
   max-width: 1200px;
   border-radius: 25px;
 }

@@ -1,39 +1,35 @@
 <template>
-  <v-layout wrap>
-    <v-flex class="white">
-      <v-card class="card mt-8 d-flex flex-column align-center" flat>
+  <v-navigation-drawer width="400px" app>
+    <!-- <v-card class="mt-8 d-flex flex-column align-center" flat>
         <v-img src="../../assets/logo.png" class="logo" />
-      </v-card>
-      <v-card flat class="card">
-        <v-list-item-group class="mt-8" v-model="selectedItem" color="primary">
-          <v-list-item
-            class="pt-6 pb-6"
-            v-for="(item, i) in items"
-            :key="i"
-            active-class="highlighted"
-            :to="item.to"
-          >
-            <v-list-item-icon>
-              <v-img
-                color="grey ligthen-4"
-                :src="require(`../../assets/icons/${item.icon}.png`)"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title
-                class="item-list"
-                v-text="item.text"
-              ></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-card>
-    </v-flex>
+      </v-card> -->
+    <v-list-item-group class="mt-8" v-model="selectedItem" color="primary">
+      <v-list-item
+        class="pt-6 pb-6"
+        v-for="(item, i) in items"
+        :key="i"
+        active-class="highlighted"
+        :to="item.to"
+      >
+        <v-list-item-icon>
+          <v-img
+            color="grey ligthen-4"
+            :src="require(`../../assets/icons/${item.icon}.png`)"
+          />
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title
+            class="item-list"
+            v-text="item.text"
+          ></v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list-item-group>
 
     <v-btn @click="logout()" text elevation="0" class="button pa-7"
       ><v-icon x-large>mdi-logout</v-icon></v-btn
     >
-  </v-layout>
+  </v-navigation-drawer>
 </template>
 
 <script>
@@ -80,7 +76,7 @@ export default {
 }
 .button {
   position: absolute;
-  bottom: 90px;
+  bottom: 20px;
   left: 130px;
 }
 </style>

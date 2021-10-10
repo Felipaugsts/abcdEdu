@@ -1,24 +1,27 @@
 <template>
   <v-card class="card d-flex align-center">
-    <v-flex lg4 class="field pl-7 mt-10">
-      <template> <slot name="header" class="ml-2"></slot></template>
-    </v-flex>
+    <v-layout class="d-flex align-center">
+      <v-flex lg4 class="mt-16 pa-4">
+        <template> <slot name="header" class="ml-2"></slot></template>
+      </v-flex>
 
-    <v-flex lg4 class="ml-8 mr-10">
-      <p class="filterBy">Filtrar por:</p>
-      <div class="d-flex">
-        <v-btn class="filterByBtn primary"> Nome</v-btn>
-        <v-btn class="filterByBtn">Ano</v-btn>
-      </div>
-    </v-flex>
-    <v-flex lg4 class="ml-16">
-      <Button
-        @click="action"
-        tipo="primary"
-        class="mt-6"
-        label="Adicionar novo aluno"
-      />
-    </v-flex>
+      <v-flex lg4 class="pa-4 d-flex flex-column justify-center">
+        <p class="filterBy ml-10 grey--text">Filtrar por:</p>
+        <div class="d-flex justify-center">
+          <v-btn disabled class="filterByBtn primary"> Nome</v-btn>
+          <v-btn disabled class="filterByBtn">Ano</v-btn>
+        </div>
+      </v-flex>
+      <v-flex lg4 class="pa-4 d-flex justify-center">
+        <Button
+          :onclick="action"
+          tipo="primary"
+          class="mt-6"
+          label="Adicionar novo aluno"
+          width="250px"
+        />
+      </v-flex>
+    </v-layout>
   </v-card>
 </template>
 <script>
@@ -58,7 +61,7 @@ export default {
 }
 .filterByBtn {
   height: 32px;
-  width: 161px;
+  width: 120px;
   border-radius: 25px;
 }
 </style>

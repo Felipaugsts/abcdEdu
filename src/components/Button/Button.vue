@@ -1,9 +1,11 @@
 <template>
   <v-btn
     :loading="loading"
-    @click="Action()"
+    @click="onclick()"
     id="button-txt"
     :class="tipo === 'primary' ? 'primary' : 'sec'"
+    :width="width"
+    :disabled="disabled"
   >
     {{ label }}
   </v-btn>
@@ -20,6 +22,15 @@ export default {
     loading: {
       type: Boolean,
     },
+    width: {
+      type: String,
+    },
+    onclick: {
+      type: Function,
+    },
+    disabled: {
+      type: Boolean,
+    },
   },
   methods: {
     Action() {
@@ -31,14 +42,14 @@ export default {
 <style scoped>
 .primary {
   height: 50px;
-  width: 300px;
+
   border-radius: 20px;
   -webkit-box-shadow: -2px 5px 3px 1px #25abe6;
   box-shadow: -2px 5px 3px 1px #25abe6;
 }
 .sec {
   height: 50px;
-  width: 300px;
+
   border-radius: 20px;
   background: white;
   color: #25abe6;

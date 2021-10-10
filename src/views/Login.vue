@@ -9,7 +9,7 @@
 
           <v-form class="pa-6" ref="form">
             <h5 class="ml-2 font-weight-light red--text" v-if="error">
-              Tente novamente mais tarde
+              Email ou senha estão incorretos
             </h5>
             <TextField :fields="Email" class="mt-3" />
             <TextField :fields="Senha" class="mt-4" />
@@ -18,15 +18,17 @@
           <v-card-actions class="d-flex flex-column">
             <Button
               :loading="loader"
-              @click="Login"
+              :onclick="Login"
               label="Login"
               class="login-btn mb-4"
               tipo="primary"
+              width="300px"
             />
             <Button
               label="Esqueci senha"
               class="login-btn mr-2"
               tipo="secondary"
+              width="300px"
             />
           </v-card-actions>
         </v-card>
@@ -52,11 +54,13 @@ export default {
       Email: {
         label: "Email",
         text: "",
+        rules: true,
       },
       Senha: {
         label: "Senha",
         text: "",
         type: "password",
+        rules: true,
       },
     };
   },

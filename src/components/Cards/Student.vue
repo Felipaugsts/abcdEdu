@@ -1,12 +1,14 @@
 <template>
-  <v-card class="card pa-6">
+  <v-card class="card pa-6" v-on:click="selected(student)">
     <v-img
       class="profile_img"
       :src="require('../../assets/kids/' + student.avatar + '.png')"
     />
 
     <v-card-title class="name"> {{ student.nome }} </v-card-title>
-    <v-card-subtitle> {{ student.escolaridade }} ano </v-card-subtitle>
+    <v-card-subtitle class="year">
+      {{ student.escolaridade }} ano
+    </v-card-subtitle>
   </v-card>
 </template>
 <script>
@@ -16,9 +18,17 @@ export default {
       type: [String, Number, Object],
     },
   },
+  methods: {
+    selected(student) {
+      this.$emit("AlunoSelected", student);
+      console.log("selected", student);
+    },
+  },
 };
 </script>
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,400;1,300&display=swap");
+
 .card {
   height: 321px;
   width: 276px;
@@ -34,13 +44,15 @@ export default {
   border-radius: 22px;
 }
 .name {
-  font-family: Montserrat;
-  font-size: 22px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: 27px;
-  letter-spacing: 0em;
-  text-align: left;
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 500;
+  color: #616161;
+}
+.year {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
   color: #616161;
 }
 </style>

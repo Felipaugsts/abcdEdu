@@ -1,15 +1,16 @@
 <template>
   <v-navigation-drawer width="400px" app>
-    <!-- <v-card class="mt-8 d-flex flex-column align-center" flat>
-        <v-img src="../../assets/logo.png" class="logo" />
-      </v-card> -->
-    <v-list-item-group class="mt-8" v-model="selectedItem" color="primary">
+    <v-card class="mt-8 d-flex flex-column align-center" flat>
+      <v-img src="../../assets/logo.png" class="logo" />
+    </v-card>
+    <v-list-item-group class="mt-8" color="primary">
       <v-list-item
         class="pt-6 pb-6"
         v-for="(item, i) in items"
         :key="i"
         active-class="highlighted"
         :to="item.to"
+        disabled
       >
         <v-list-item-icon>
           <v-img

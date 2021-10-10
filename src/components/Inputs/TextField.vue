@@ -9,13 +9,14 @@
     outlined
     :rules="field.rules === true ? nameRules : []"
     :prepend-inner-icon="field.inner"
+    :disabled="disabled"
   ></v-text-field>
 </template>
 
 <script>
 export default {
   name: "txt",
-  props: ["fields", "model"],
+  props: ["fields", "model", "disabled"],
   data() {
     return {
       field: this.fields,

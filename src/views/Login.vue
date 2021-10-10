@@ -8,6 +8,9 @@
           </v-card-title>
 
           <v-form class="pa-6" ref="form">
+            <h5 class="ml-2 font-weight-light red--text" v-if="error">
+              Email ou senha estão incorretos
+            </h5>
             <TextField :fields="Email" class="mt-3" />
             <TextField :fields="Senha" class="mt-4" />
           </v-form>
@@ -15,15 +18,17 @@
           <v-card-actions class="d-flex flex-column">
             <Button
               :loading="loader"
-              @click="Login"
+              :onclick="Login"
               label="Login"
               class="login-btn mb-4"
               tipo="primary"
+              width="300px"
             />
             <Button
               label="Esqueci senha"
               class="login-btn mr-2"
               tipo="secondary"
+              width="300px"
             />
           </v-card-actions>
         </v-card>
@@ -37,7 +42,6 @@ import Button from "../components/Button/Button.vue";
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 export default {
-  
   name: "Login",
   components: {
     TextField,
@@ -46,14 +50,17 @@ export default {
   data() {
     return {
       loader: false,
+      error: false,
       Email: {
         label: "Email",
-        text: "teste@gmail.com",
+        text: "",
+        rules: true,
       },
       Senha: {
         label: "Senha",
-        text: "teste123",
+        text: "",
         type: "password",
+        rules: true,
       },
     };
   },
@@ -74,12 +81,14 @@ export default {
           })
           .catch((error) => {
             const errorCode = error.code;
+            this.loader = false;
+
             console.log("errorCode", errorCode);
+            this.error = true;
           });
       }
     },
   },
-  
 };
 </script>
 <style scoped>

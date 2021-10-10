@@ -1,18 +1,15 @@
 <template>
   <v-app>
-    <v-layout>
-      <v-flex lg3 v-if="this.$store.state.token">
-        <Sidebar />
-      </v-flex>
-      <v-flex>
-        <router-view />
-      </v-flex>
-    </v-layout>
+    <Sidebar v-if="this.$store.state.token" />
+    <v-main class="grey lighten-4">
+      <router-view />
+    </v-main>
+    <p class="fixedText">© 2020 EduEdu, todos os direitos reservados</p>
   </v-app>
 </template>
 
 <script>
-import Sidebar from "@/components/Pages/SideBar.vue";
+import Sidebar from "@/components/SideBar.vue";
 export default {
   name: "App",
 
@@ -24,3 +21,18 @@ export default {
   },
 };
 </script>
+<style scoped>
+.fixedText {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 17px;
+  letter-spacing: 0em;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 10;
+  color: #afafaf;
+}
+</style>

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Sidebar from "@/components/Pages/SideBar.vue";
+import Sidebar from "@/components/SideBar.vue";
 export default {
   name: "App",
 

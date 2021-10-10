@@ -31,14 +31,8 @@
             </v-flex>
           </v-layout>
           <v-card-actions v-if="!loading">
-            <v-layout wrap>
-              <v-flex
-                class="pa-2"
-                sm4
-                lg3
-                v-for="(st, i) in primeiroAno"
-                :key="i"
-              >
+            <v-layout wrap class="d-flex justify-end">
+              <v-flex class="pa-2" v-for="(st, i) in primeiroAno" :key="i">
                 <Student @AlunoSelected="handleAbout" :student="st" />
               </v-flex>
             </v-layout>
@@ -59,13 +53,7 @@
           </v-layout>
           <v-card-actions v-if="!loading">
             <v-layout wrap>
-              <v-flex
-                class="pa-2"
-                sm4
-                lg3
-                v-for="(st, i) in SegundoAno"
-                :key="i"
-              >
+              <v-flex class="pa-2" xs4 v-for="(st, i) in SegundoAno" :key="i">
                 <Student @AlunoSelected="handleAbout" :student="st" />
               </v-flex>
             </v-layout>
@@ -73,8 +61,8 @@
         </v-card>
       </v-flex>
       <v-flex>
-        <v-layout wrap v-if="filtereingdata">
-          <v-flex class="pa-2" sm4 lg3 v-for="(st, i) in filtered" :key="i">
+        <v-layout class="d-flex justify-start" wrap v-if="filtereingdata">
+          <v-flex class="pa-2" xs4 v-for="(st, i) in filtered" :key="i">
             <Student :student="st" />
           </v-flex>
         </v-layout>

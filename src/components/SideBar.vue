@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer width="400px" app>
     <v-card class="mt-8 d-flex flex-column align-center" flat>
-      <v-img src="../../assets/logo.png" class="logo" />
+      <v-img src=".././assets/logo.png" class="logo" />
     </v-card>
     <v-list-item-group class="mt-8" color="primary">
       <v-list-item
@@ -15,7 +15,7 @@
         <v-list-item-icon>
           <v-img
             color="grey ligthen-4"
-            :src="require(`../../assets/icons/${item.icon}.png`)"
+            :src="require(`./../assets/icons/${item.icon}.png`)"
           />
         </v-list-item-icon>
         <v-list-item-content>
@@ -26,10 +26,22 @@
         </v-list-item-content>
       </v-list-item>
     </v-list-item-group>
-
-    <v-btn @click="logout()" text elevation="0" class="button pa-7"
-      ><v-icon x-large>mdi-logout</v-icon></v-btn
-    >
+    <v-list-item-group>
+      <v-list-item
+        @click="logout()"
+        class="pt-6 pb-6"
+        active-class="highlighted"
+      >
+        <v-list-item-icon>
+          <v-icon x-large color="grey ligthen-4">mdi-logout</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title class="item-list grey--text">
+            Sair
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list-item-group>
   </v-navigation-drawer>
 </template>
 

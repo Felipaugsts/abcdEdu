@@ -71,7 +71,7 @@
             </v-layout>
           </v-card-actions>
 
-          <v-card-actions class="justify-center mt-5">
+          <v-card-actions class="justify-center mt-5 pb-10">
             <Button
               :onclick="cancelar"
               label="Cancelar"
@@ -85,6 +85,7 @@
               label="Adicionar aluno"
               tipo="primary"
               width="150px"
+              :loading="loading"
             />
           </v-card-actions>
         </v-card>
@@ -120,6 +121,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       Name: {
         label: "Nome Completo",
         text: "",
@@ -153,6 +155,7 @@ export default {
   methods: {
     async AddStudent() {
       if (this.$refs.form.validate()) {
+        this.loading = true;
         const db = getFirestore();
         const docRef = await addDoc(collection(db, "Alunos"), {
           nome: this.Name.text,
@@ -163,6 +166,7 @@ export default {
         console.log("Document written with ID: ", docRef.id);
         this.$emit("successAdded");
         console.log("emiting ");
+        this.loading = false;
       }
     },
 
@@ -198,7 +202,8 @@ export default {
 </script>
 <style scoped>
 .card {
-  height: 870px;
+  max-height: 870px;
+  min-height: 700px;
   width: 672px;
   border-radius: 25px;
 }

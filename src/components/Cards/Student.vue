@@ -31,14 +31,14 @@ export default {
 
 .card {
   height: 321px;
-  width: 276px;
+  max-width: 276px !important;
   cursor: pointer;
   border-radius: 10px;
 }
 .profile_img {
   object-fit: contain;
   height: 199px;
-  width: 236px;
+  max-width: 236px !important;
   border-radius: 10px;
 
   border-radius: 22px;

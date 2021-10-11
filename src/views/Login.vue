@@ -97,6 +97,11 @@ export default {
   background-size: 100% 100%;
   height: 100vh;
 }
+@media screen and (max-width: 900px) {
+  .bg {
+    background-size: auto;
+  }
+}
 .wrapper {
   height: 517px;
   width: 368px;

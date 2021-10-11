@@ -10,13 +10,14 @@
     :rules="field.rules === true ? nameRules : []"
     :prepend-inner-icon="field.inner"
     :disabled="disabled"
+    :width="width"
   ></v-text-field>
 </template>
 
 <script>
 export default {
   name: "txt",
-  props: ["fields", "model", "disabled"],
+  props: ["fields", "model", "disabled", 'width'],
   data() {
     return {
       field: this.fields,

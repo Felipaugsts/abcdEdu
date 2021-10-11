@@ -1,28 +1,33 @@
 <template>
-  <v-card class="card d-flex align-center">
-    <v-layout class="d-flex align-center">
-      <v-flex lg4 class="mt-16 pa-4">
+<div>
+  <v-card class="card d-flex align-center " >
+    <v-layout class=" d-flex align-center ">
+      <v-flex lg4 class="mt-16 pa-4 pt-4">
         <template> <slot name="header" class="ml-2"></slot></template>
       </v-flex>
 
-      <v-flex lg4 class="pa-4 d-flex flex-column justify-center">
-        <p class="filterBy ml-10 grey--text">Filtrar por:</p>
+      <v-flex lg4 class="pa-4 d-flex flex-column justify-center"  >
+        <p class="filterBy ml-10 grey--text filterby">Filtrar por:</p>
         <div class="d-flex justify-center">
-          <v-btn disabled class="filterByBtn primary"> Nome</v-btn>
-          <v-btn disabled class="filterByBtn">Ano</v-btn>
+          <v-btn disabled class="filterByBtn filterby primary"> Nome</v-btn>
+          <v-btn disabled class="filterByBtn filterby">Ano</v-btn>
         </div>
       </v-flex>
       <v-flex lg4 class="pa-4 d-flex justify-center">
         <Button
           :onclick="action"
           tipo="primary"
-          class="mt-6"
+          class="mt-6 addBtn"
           label="Adicionar novo aluno"
           width="250px"
         />
+        <v-btn @click="action" outlined icon class="mt-3 addbtn" color="primary">
+          <v-icon color="primary">mdi-plus</v-icon>
+        </v-btn>
       </v-flex>
     </v-layout>
   </v-card>
+</div>
 </template>
 <script>
 import Button from "../../Button/Button.vue";
@@ -43,7 +48,7 @@ export default {
 <style scoped>
 .card {
   max-height: 126px;
-  max-width: 1200px;
+  width: auto;
   border-radius: 25px;
 }
 .field {
@@ -59,6 +64,25 @@ export default {
   text-align: left;
   margin-bottom: 5px;
 }
+@media screen and (max-width: 1336px) {
+  .filterby {
+    display: none;
+  }
+}
+@media screen and (max-width: 650px) {
+  .addBtn {
+    display: none;
+  }
+  .addbtn { 
+    display: block;
+  }
+}
+@media screen and (min-width: 650px) {
+  .addbtn {
+    display: none;
+  }
+}
+
 .filterByBtn {
   height: 32px;
   width: 120px;

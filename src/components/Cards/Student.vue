@@ -1,4 +1,9 @@
 <template>
+      <v-flex class="justify-lg-start card justify-xs-center justify-sm-center justify-center
+              d-flex
+              ma-1
+              pa-xl-2 pa-lg-1 pa-md-0 pa-sm-0"
+              v-on:click="selected(student)">
   <v-card class="card pa-6" v-on:click="selected(student)">
     <v-img
       class="profile_img"
@@ -10,6 +15,7 @@
       {{ student.escolaridade }} ano
     </v-card-subtitle>
   </v-card>
+      </v-flex>
 </template>
 <script>
 export default {
@@ -31,14 +37,14 @@ export default {
 
 .card {
   height: 321px;
-  max-width: 276px !important;
+  min-width: 300px !important;
   cursor: pointer;
   border-radius: 10px;
 }
 .profile_img {
   object-fit: contain;
   height: 199px;
-  max-width: 236px !important;
+  max-width: 300px !important;
   border-radius: 10px;
 
   border-radius: 22px;

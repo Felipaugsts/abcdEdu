@@ -26,24 +26,26 @@
               <TextField
                 :disabled="action === 'adicionar' ? false : true"
                 :fields="action === 'adicionar' ? Name : editName"
-                class="mb-3"
+                class="mb-3 field"
+          
               />
               <TextField
+                class="field"
                 :disabled="action === 'adicionar' ? false : true"
                 :fields="action === 'adicionar' ? Escola : editEscola"
               />
             </v-form>
           </v-card-text>
-          <v-card-actions class="pl-10 pr-10 mt-4">
+          <v-card-actions class="pl-lg-10 pr-lg-10 mt-4">
             <v-layout wrap>
-              <v-flex lg3>
+              <v-flex lg3 class="carmen">
                 <v-img
                   class="profile_img"
                   src="../../.././assets/kids/carmen.png"
                 />
               </v-flex>
-              <v-flex lg9 class="pl-8">
-                <p class="title primary--text pl-7">Ano Escolar</p>
+              <v-flex lg9 xs12 class="pl-lg-8 pa-4">
+                <p class="title primary--text pl-lg-7 pl-0">Ano Escolar</p>
                 <Slider
                   @sliderValue="sliderValue"
                   :studentinfo="
@@ -52,12 +54,12 @@
                   :disabled="action !== 'adicionar' ? true : false"
                 />
 
-                <p class="mt-3 info-text font-weigth-light">
+                <p class="mt-3 info-text font-weigth-light carmen">
                   <span class="info-bold">Pré I:</span> Aluno completou 4 anos
                   antes do dia 31/03/2020.
                   <br />
 
-                  <span class="info-bold">Pré II:</span> Aluno completou 5 anos
+                  <span class="info-bold carmen">Pré II:</span> Aluno completou 5 anos
                   antes do dia 31/03/2020..
                 </p>
               </v-flex>
@@ -217,7 +219,7 @@ export default {
   width: 218px;
 }
 .form {
-  width: 594px;
+  width: 100%;
 }
 .title {
   font-family: Montserrat;
@@ -246,4 +248,14 @@ export default {
   text-align: left;
   color: #c4c4c4;
 }
+.field { 
+  width: auto;
+}
+
+@media screen and (max-width: 748px) {
+  .carmen {
+    display: none;
+  }
+}
+
 </style>

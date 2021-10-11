@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-layout wrap class="grey lighten-4 pa-6">
+    <v-layout wrap class="grey lighten-4 pa-3">
       <v-flex xs12 class="mt-8 mb-10">
         <FilterAdd v-if="!AddNew" @click="HandleAddStudent">
           <template v-slot:header>
@@ -30,11 +30,11 @@
               ></v-skeleton-loader>
             </v-flex>
           </v-layout>
+
           <v-card-actions v-if="!loading">
-            <v-layout wrap class="d-flex justify-end">
-              <v-flex class="pa-2" v-for="(st, i) in primeiroAno" :key="i">
-                <Student @AlunoSelected="handleAbout" :student="st" />
-              </v-flex>
+            <v-layout wrap class="d-flex justify-center">
+                <Student v-for="(st, i) in primeiroAno" :key="i" @AlunoSelected="handleAbout" :student="st" />
+        
             </v-layout>
           </v-card-actions>
         </v-card>
@@ -52,19 +52,16 @@
             </v-flex>
           </v-layout>
           <v-card-actions v-if="!loading">
-            <v-layout wrap>
-              <v-flex class="pa-2" xs4 v-for="(st, i) in SegundoAno" :key="i">
-                <Student @AlunoSelected="handleAbout" :student="st" />
-              </v-flex>
+            <v-layout wrap  class="d-flex justify-center">
+                <Student v-for="(st, i) in SegundoAno" :key="i" @AlunoSelected="handleAbout" :student="st" />
+  
             </v-layout>
           </v-card-actions>
         </v-card>
       </v-flex>
       <v-flex>
         <v-layout class="d-flex justify-start" wrap v-if="filtereingdata">
-          <v-flex class="pa-2" xs4 v-for="(st, i) in filtered" :key="i">
-            <Student :student="st" />
-          </v-flex>
+            <Student v-for="(st, i) in filtered" :key="i" :student="st" />
         </v-layout>
       </v-flex>
     </v-layout>

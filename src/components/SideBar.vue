@@ -1,6 +1,12 @@
 <template>
-  <v-navigation-drawer width="400px" app>
+<div>
+  <v-app-bar app flat color="transparent">
+   <v-icon @click="drawer = !drawer"  v-if="!drawer">mdi-menu</v-icon> 
+  </v-app-bar>
+    <v-navigation-drawer width="400px" v-model="drawer" app>
+  <v-icon @click="drawer = !drawer" class="float-right ma-6"  v-if="drawer" color="grey">mdi-close</v-icon>
     <v-card class="mt-8 d-flex flex-column align-center" flat>
+      
       <v-img src=".././assets/logo.png" class="logo" />
     </v-card>
     <v-list-item-group class="mt-8" color="primary">
@@ -43,17 +49,18 @@
       </v-list-item>
     </v-list-item-group>
   </v-navigation-drawer>
+</div>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      drawer: true,
       items: [
         { text: "Perfil dos Alunos", icon: "icon_face", to: "/" },
         { text: "Prova de Português", icon: "icon_doc" },
-        { text: "Atividades Digitais", icon: "icon_test" },
-        { text: "Ajuda", icon: "icon_help" },
+
         { text: "Configurações", icon: "icon_settings" },
       ],
     };

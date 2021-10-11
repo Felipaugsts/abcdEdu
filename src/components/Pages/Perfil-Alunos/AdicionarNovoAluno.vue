@@ -7,17 +7,32 @@
             <v-img
               v-if="action !== 'adicionar'"
               class="profile_img"
-              :src="require('../../../assets/kids/' + editInfo.avatar + '.png')"
+              :src="editInfo.avatar"
             />
             <v-img
               v-if="action === 'adicionar'"
-              class="profile_img"
-              src="../../.././assets/kids/sr-goiaba.png"
+              :class="errorimg === false ? 'profile_img' : 'profile_img_err'"
+              :src="
+                setFileUrl !== null
+                  ? setFileUrl
+                  : 'https://media.istockphoto.com/photos/female-portrait-icon-as-avatar-or-profile-picture-picture-id477333976?b=1&k=20&m=477333976&s=170667a&w=0&h=0MKAqzspB2Tcx7Yf42nYI0Pda9qK1oZap25Mru21K40='
+              "
             />
+
             <Button
               v-if="action === 'adicionar'"
+              :onclick="onButtonClick"
+              for="file_input_id"
               class="edit_avatar"
               label="Mudar Avatar"
+              type="file"
+              :loading="loader"
+            />
+            <input
+              type="file"
+              ref="input"
+              @change="onFileSelect"
+              id="file_input_id"
             />
           </v-card-title>
 
@@ -27,7 +42,6 @@
                 :disabled="action === 'adicionar' ? false : true"
                 :fields="action === 'adicionar' ? Name : editName"
                 class="mb-3 field"
-          
               />
               <TextField
                 class="field"
@@ -59,8 +73,8 @@
                   antes do dia 31/03/2020.
                   <br />
 
-                  <span class="info-bold carmen">Pré II:</span> Aluno completou 5 anos
-                  antes do dia 31/03/2020..
+                  <span class="info-bold carmen">Pré II:</span> Aluno completou
+                  5 anos antes do dia 31/03/2020..
                 </p>
               </v-flex>
               <v-flex lg12>
@@ -101,8 +115,7 @@ import TextField from "@/components/Inputs/TextField.vue";
 import Slider from "@/components/Slider/Slider.vue";
 import checkbox from "@/components/Inputs/Checkbox.vue";
 
-import { getFirestore } from "firebase/firestore";
-import { collection, addDoc } from "firebase/firestore";
+import { App } from "../../../base";
 export default {
   props: {
     cancelar: {
@@ -123,7 +136,11 @@ export default {
   },
   data() {
     return {
+      setFileUrl: null,
+      fileUrl: [],
       loading: false,
+      loader: false,
+      errorimg: false,
       Name: {
         label: "Nome Completo",
         text: "",
@@ -155,20 +172,43 @@ export default {
   },
 
   methods: {
+    onButtonClick() {
+      this.$refs.input.click();
+    },
+    async onFileSelect(e) {
+      this.loader = true;
+      const files = e.target.files[0];
+      var storageRef = App.storage().ref();
+      var fileRef = storageRef.child(files.name);
+
+      var file = files; // use the Blob or File API
+      await fileRef.put(file);
+      this.setFileUrl = await fileRef.getDownloadURL();
+      console.log("onFileSelect", this.setFileUrl);
+      this.loader = false;
+    },
+
     async AddStudent() {
       if (this.$refs.form.validate()) {
-        this.loading = true;
-        const db = getFirestore();
-        const docRef = await addDoc(collection(db, "Alunos"), {
-          nome: this.Name.text,
-          escolaridade: this.value,
-          escola: this.Escola.text,
-          avatar: "juju",
-        });
-        console.log("Document written with ID: ", docRef.id);
-        this.$emit("successAdded");
-        console.log("emiting ");
-        this.loading = false;
+        if (!this.setFileUrl) {
+          this.errorimg = true;
+          console.log("img required");
+        } else {
+          this.errorimg = false;
+          this.loading = true;
+          const db = App.firestore();
+
+          await db.collection("Alunos").doc().set({
+            nome: this.Name.text,
+            escolaridade: this.value,
+            escola: this.Escola.text,
+            avatar: this.setFileUrl,
+          });
+
+          this.$emit("successAdded");
+          console.log("emiting ");
+          this.loading = false;
+        }
       }
     },
 
@@ -215,6 +255,13 @@ export default {
   max-width: 156px;
   border-radius: 22px;
 }
+.profile_img_err {
+  object-fit: contain;
+  height: 157px;
+  max-width: 156px;
+  border-radius: 22px;
+  border: 0.5px solid rgb(238, 142, 142);
+}
 .edit_avatar {
   width: 218px;
 }
@@ -248,7 +295,7 @@ export default {
   text-align: left;
   color: #c4c4c4;
 }
-.field { 
+.field {
   width: auto;
 }
 
@@ -257,5 +304,7 @@ export default {
     display: none;
   }
 }
-
+#file_input_id {
+  display: none;
+}
 </style>

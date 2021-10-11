@@ -17,6 +17,7 @@
         />
       </v-flex>
 
+      <!-- 1 ANO -->
       <v-flex xs12 v-if="!AddNew && !this.filtereingdata">
         <v-card flat class="transparent">
           <v-card-title> 1 Ano </v-card-title>
@@ -32,13 +33,26 @@
           </v-layout>
 
           <v-card-actions v-if="!loading">
-            <v-layout wrap class="d-flex justify-center">
-                <Student v-for="(st, i) in primeiroAno" :key="i" @AlunoSelected="handleAbout" :student="st" />
-        
+            <v-layout wrap class="d-flex justify-start">
+              <v-flex
+                xl3
+                lg4
+                v-for="(st, i) in primeiroAno"
+                :key="i"
+                class="
+                  d-flex
+                  justify-center justify-md-start justify-lg-start
+                  card
+                  pa-2
+                "
+              >
+                <Student @AlunoSelected="handleAbout" :student="st" />
+              </v-flex>
             </v-layout>
           </v-card-actions>
         </v-card>
 
+        <!-- Segundo Ano -->
         <v-card flat class="transparent">
           <v-card-title> 2 Ano </v-card-title>
           <v-divider></v-divider>
@@ -52,16 +66,30 @@
             </v-flex>
           </v-layout>
           <v-card-actions v-if="!loading">
-            <v-layout wrap  class="d-flex justify-center">
-                <Student v-for="(st, i) in SegundoAno" :key="i" @AlunoSelected="handleAbout" :student="st" />
-  
+            <v-layout wrap class="d-flex justify-start">
+              <v-flex
+                xl3
+                lg4
+                v-for="(st, i) in SegundoAno"
+                :key="i"
+                class="
+                  d-flex
+                  justify-center justify-md-start justify-lg-start
+                  card
+                  pa-2
+                "
+              >
+                <Student @AlunoSelected="handleAbout" :student="st" />
+              </v-flex>
             </v-layout>
           </v-card-actions>
         </v-card>
       </v-flex>
+
+      <!-- Filtered data -->
       <v-flex>
         <v-layout class="d-flex justify-start" wrap v-if="filtereingdata">
-            <Student v-for="(st, i) in filtered" :key="i" :student="st" />
+          <Student v-for="(st, i) in filtered" :key="i" :student="st" />
         </v-layout>
       </v-flex>
     </v-layout>
@@ -71,9 +99,7 @@
 import NovoAluno from "../components/Pages/Perfil-Alunos/AdicionarNovoAluno.vue";
 import FilterAdd from "../components/Pages/Perfil-Alunos/FilterAddCard.vue";
 import Student from "../components/Cards/Student.vue";
-
-import { collection, getDocs } from "firebase/firestore";
-import { getFirestore } from "firebase/firestore";
+import { App } from "../base";
 export default {
   components: {
     NovoAluno,
@@ -105,20 +131,22 @@ export default {
       location.reload();
       this.HandleAddStudent();
     },
+
     handleAbout(stud) {
       console.log("st", stud);
       this.editInfo = stud;
       this.AddNew = !this.AddNew;
       this.action = "about";
     },
+
     HandleAddStudent() {
       this.AddNew = !this.AddNew;
       this.action = "adicionar";
     },
 
     async GetStudents(st) {
-      const db = getFirestore();
-      const querySnapshot = await getDocs(collection(db, st));
+      const db = App.firestore();
+      const querySnapshot = await db.collection(st).get();
       querySnapshot.forEach((doc) => {
         this.Alunos.push(doc.data());
 
@@ -153,8 +181,9 @@ export default {
       if (this.filtering) {
         this.filtereingdata = true;
         const alunos = this.Alunos;
+        console.log("alunos", alunos);
         this.filtered = alunos.filter((filter) => {
-          console.log("ff", filter.nome);
+          console.log("ff", filter);
           return filter.nome
             .toLowerCase()
             .includes(this.filtering.toLowerCase());

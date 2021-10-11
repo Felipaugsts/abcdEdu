@@ -6,6 +6,7 @@
     :class="tipo === 'primary' ? 'primary' : 'sec'"
     :width="width"
     :disabled="disabled"
+    :type="type"
   >
     {{ label }}
   </v-btn>
@@ -30,6 +31,9 @@ export default {
     },
     disabled: {
       type: Boolean,
+    },
+    type: {
+      type: String,
     },
   },
   methods: {

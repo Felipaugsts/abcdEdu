@@ -17,7 +17,7 @@
 <script>
 export default {
   name: "txt",
-  props: ["fields", "model", "disabled", 'width'],
+  props: ["fields", "model", "disabled", "width"],
   data() {
     return {
       field: this.fields,

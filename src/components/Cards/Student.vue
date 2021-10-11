@@ -1,21 +1,14 @@
 <template>
-      <v-flex class="justify-lg-start card justify-xs-center justify-sm-center justify-center
-              d-flex
-              ma-1
-              pa-xl-2 pa-lg-1 pa-md-0 pa-sm-0"
-              v-on:click="selected(student)">
-  <v-card class="card pa-6" v-on:click="selected(student)">
-    <v-img
-      class="profile_img"
-      :src="require('../../assets/kids/' + student.avatar + '.png')"
-    />
+  <v-card class="card pa-6 ma-3" v-on:click="selected(student)">
+    <v-img class="profile_img" :src="student.avatar" />
 
-    <v-card-title class="name"> {{ student.nome }} </v-card-title>
-    <v-card-subtitle class="year">
+    <v-card-title class="name text-capitalize">
+      {{ student.nome }}
+    </v-card-title>
+    <v-card-subtitle class="year text-capitalize">
       {{ student.escolaridade }} ano
     </v-card-subtitle>
   </v-card>
-      </v-flex>
 </template>
 <script>
 export default {
@@ -37,14 +30,14 @@ export default {
 
 .card {
   height: 321px;
-  min-width: 300px !important;
+  min-width: 280px !important;
   cursor: pointer;
   border-radius: 10px;
 }
 .profile_img {
-  object-fit: contain;
+  object-fit: scale-down;
   height: 199px;
-  max-width: 300px !important;
+  width: 280px !important;
   border-radius: 10px;
 
   border-radius: 22px;

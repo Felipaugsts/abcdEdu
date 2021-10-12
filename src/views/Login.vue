@@ -81,8 +81,19 @@ this.$store.dispatch('signUserIn', form)
     },
     authsuccess() { 
       return this.$store.getters.authsuccess
+    },
+    computed: { 
+      user() { 
+       return this.$store.getters.user
+      }
+    },
+    watch: {
+      user() { 
+        console.log('user', this.user)
+      }
     }
-  }
+    
+  },
 };
 </script>
 <style scoped>

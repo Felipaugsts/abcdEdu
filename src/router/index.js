@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import store from "../store/index";
+
 
 Vue.use(VueRouter);
 
@@ -30,7 +30,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const loggedIn = store.state.user;
+  const loggedIn = sessionStorage.getItem("user") 
 
   if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
     next("/login");

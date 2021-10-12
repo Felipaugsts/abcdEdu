@@ -24,6 +24,9 @@ export default new Vuex.Store({
     },
     authsuccess(state) {
       return state.authsuccess
+    },
+    user(state) {
+      return state.user
     }
   },
   mutations: {

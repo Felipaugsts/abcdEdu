@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Sidebar v-if="this.$store.state.token" />
+    <Sidebar v-if="this.$store.state.user" />
     <v-main class="grey lighten-4">
       <router-view />
     </v-main>

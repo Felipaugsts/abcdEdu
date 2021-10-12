@@ -45,7 +45,7 @@ export default {
 .name {
   font-family: Inter;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 530;
   color: #616161;
 }
 .year {

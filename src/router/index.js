@@ -30,7 +30,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const loggedIn = store.state.token;
+  const loggedIn = store.state.user;
 
   if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
     next("/login");

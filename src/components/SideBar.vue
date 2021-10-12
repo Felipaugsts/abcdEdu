@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.commit("CLEAR_USER_DATA");
+      this.$store.dispatch("logout");
     },
   },
 };

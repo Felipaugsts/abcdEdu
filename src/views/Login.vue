@@ -8,7 +8,7 @@
           </v-card-title>
 
           <v-form class="pa-6" ref="form">
-            <h5 class="ml-2 font-weight-light red--text" v-if="error">
+            <h5 class="ml-2 font-weight-light red--text" v-if="authsuccess">
               Email ou senha estão incorretos
             </h5>
             <TextField :fields="Email" class="mt-3" />
@@ -17,7 +17,7 @@
 
           <v-card-actions class="d-flex flex-column">
             <Button
-              :loading="loader"
+              :loading="loading"
               :onclick="Login"
               label="Login"
               class="login-btn mb-4"
@@ -40,7 +40,7 @@
 import TextField from "../components/Inputs/TextField.vue";
 import Button from "../components/Button/Button.vue";
 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+// import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 export default {
   name: "Login",
   components: {
@@ -49,8 +49,6 @@ export default {
   },
   data() {
     return {
-      loader: false,
-      error: false,
       Email: {
         label: "Email",
         text: "",
@@ -68,27 +66,23 @@ export default {
     Login() {
       if (this.$refs.form.validate()) {
         this.loader = true;
+const form = [ {
+  email: this.Email.text,
+  password: this.Senha.text
+}]
+this.$store.dispatch('signUserIn', form)
 
-        const auth = getAuth();
-        signInWithEmailAndPassword(auth, this.Email.text, this.Senha.text)
-          .then((userCredential) => {
-            const user = userCredential.user;
-            console.log("user", user);
-            this.loader = false;
-            this.$store.commit("SET_USERDATA", user);
-            this.$router.push("/");
-            // ...
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            this.loader = false;
-
-            console.log("errorCode", errorCode);
-            this.error = true;
-          });
       }
     },
   },
+  computed: { 
+    loading() { 
+      return this.$store.getters.loading
+    },
+    authsuccess() { 
+      return this.$store.getters.authsuccess
+    }
+  }
 };
 </script>
 <style scoped>

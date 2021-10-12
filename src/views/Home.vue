@@ -22,15 +22,6 @@
         <v-card flat class="transparent">
           <v-card-title> 1 Ano </v-card-title>
           <v-divider></v-divider>
-          <v-layout wrap v-if="loading">
-            <v-flex class="ma-3" v-for="i in 4" :key="i">
-              <v-skeleton-loader
-                class="mx-auto"
-                max-width="300"
-                type="card"
-              ></v-skeleton-loader>
-            </v-flex>
-          </v-layout>
 
           <v-card-actions v-if="!loading">
             <v-layout wrap class="d-flex justify-start">
@@ -56,15 +47,6 @@
         <v-card flat class="transparent">
           <v-card-title> 2 Ano </v-card-title>
           <v-divider></v-divider>
-          <v-layout wrap v-if="loading">
-            <v-flex class="ma-3" v-for="i in 4" :key="i">
-              <v-skeleton-loader
-                class="mx-auto"
-                max-width="300"
-                type="card"
-              ></v-skeleton-loader>
-            </v-flex>
-          </v-layout>
           <v-card-actions v-if="!loading">
             <v-layout wrap class="d-flex justify-start">
               <v-flex
@@ -99,7 +81,8 @@
 import NovoAluno from "../components/Pages/Perfil-Alunos/AdicionarNovoAluno.vue";
 import FilterAdd from "../components/Pages/Perfil-Alunos/FilterAddCard.vue";
 import Student from "../components/Cards/Student.vue";
-import { App } from "../base";
+// import db from "../base";
+
 export default {
   components: {
     NovoAluno,
@@ -127,9 +110,8 @@ export default {
 
   methods: {
     successAdded() {
-      console.log("test");
-      location.reload();
       this.HandleAddStudent();
+      this.$store.dispatch('loadStudents')  
     },
 
     handleAbout(stud) {
@@ -144,20 +126,9 @@ export default {
       this.action = "adicionar";
     },
 
-    async GetStudents(st) {
-      const db = App.firestore();
-      const querySnapshot = await db.collection(st).get();
-      querySnapshot.forEach((doc) => {
-        this.Alunos.push(doc.data());
-
-        console.log("doc", this.primeiroAno);
-      });
-      const stud = this.Alunos;
-      await this.separarAno(stud);
-    },
-
     separarAno(stud) {
       if (stud) {
+        this.Alunos = stud
         stud.filter((filter) => {
           if (filter.escolaridade === 1) {
             this.primeiroAno.push(filter);
@@ -192,12 +163,19 @@ export default {
         this.filtereingdata = false;
       }
     },
+    loadedstudents() { 
+      this.separarAno(this.loadedstudents)
+    }
+  },
+  computed: { 
+    loadedstudents() { 
+      return this.$store.getters.loadedstudents
+    }
+  },
+  created() {
+    this.$store.dispatch('loadStudents')
   },
 
-  created() {
-    this.loading = true;
-    this.GetStudents("Alunos");
-  },
 };
 </script>
 <style scoped src=".././assets/css/textfield.css"></style>

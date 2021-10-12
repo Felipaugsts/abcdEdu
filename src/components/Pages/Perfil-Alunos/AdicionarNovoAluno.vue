@@ -115,7 +115,8 @@ import TextField from "@/components/Inputs/TextField.vue";
 import Slider from "@/components/Slider/Slider.vue";
 import checkbox from "@/components/Inputs/Checkbox.vue";
 
-import { App } from "../../../base";
+import firebaseApp from "../../../base";
+
 export default {
   props: {
     cancelar: {
@@ -178,9 +179,8 @@ export default {
     async onFileSelect(e) {
       this.loader = true;
       const files = e.target.files[0];
-      var storageRef = App.storage().ref();
+      var storageRef = firebaseApp.storage().ref();
       var fileRef = storageRef.child(files.name);
-
       var file = files; // use the Blob or File API
       await fileRef.put(file);
       this.setFileUrl = await fileRef.getDownloadURL();
@@ -196,20 +196,19 @@ export default {
         } else {
           this.errorimg = false;
           this.loading = true;
-          const db = App.firestore();
-
-          await db.collection("Alunos").doc().set({
+    const newstudent = { 
             nome: this.Name.text,
             escolaridade: this.value,
             escola: this.Escola.text,
             avatar: this.setFileUrl,
-          });
+    }
+      this.$store.dispatch('createStudent', newstudent)
 
-          this.$emit("successAdded");
+          
           console.log("emiting ");
-          this.loading = false;
-        }
-      }
+          
+        
+      }}
     },
 
     sliderValue(v) {
@@ -232,6 +231,11 @@ export default {
       }
     },
   },
+  computed: { 
+    success() { 
+      return this.$store.getters.success
+    }
+  },
   watch: {
     terms() {
       this.handleForm();
@@ -239,6 +243,12 @@ export default {
     value() {
       this.handleForm();
     },
+    success() { 
+      if (this.success === true) { 
+        this.loading = false;
+       this.$emit("successAdded");
+      }
+    }
   },
 };
 </script>

@@ -244,9 +244,9 @@ export default {
       this.handleForm();
     },
     success() { 
-      if (this.success === true) { 
+      if (this.success !== null) { 
         this.loading = false;
-       this.$emit("successAdded");
+       this.$emit("successAdded", this.success);
       }
     }
   },

@@ -111,7 +111,7 @@ export default {
   methods: {
     successAdded() {
       this.HandleAddStudent();
-      this.$store.dispatch('loadStudents')  
+      location.reload();
     },
 
     handleAbout(stud) {
@@ -128,7 +128,9 @@ export default {
 
     separarAno(stud) {
       if (stud) {
-        this.Alunos = stud
+        if (stud.length > 1) {
+          this.Alunos = stud
+        }
         stud.filter((filter) => {
           if (filter.escolaridade === 1) {
             this.primeiroAno.push(filter);

@@ -9,7 +9,7 @@ export default new Vuex.Store({
     user: sessionStorage.getItem("user") || "",
     loading: false,
     loadedStudents: [],
-    success: false,
+    success: null,
     authsuccess: null,
   },
   getters: {
@@ -37,7 +37,7 @@ export default new Vuex.Store({
     success_created(state, payload) {
       state.success = payload
       setTimeout(function () {
-        state.success = false
+        state.success = null
     }.bind(this), 2000)
       
     },
@@ -79,7 +79,7 @@ export default new Vuex.Store({
           const key = data.key
           console.log("student key", key)
           commit('setLoading', false)
-          commit('success_created', true)
+          commit('success_created', newStudent)
         })
         .catch((error) => {
           console.log(error)

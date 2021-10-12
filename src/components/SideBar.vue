@@ -1,15 +1,18 @@
 <template>
   <div>
     <v-app-bar app flat color="transparent">
-      <v-icon x-large color="primary" @click="drawer = !drawer" v-if="!drawer"
+      <v-icon class="ma-4" x-large color="primary" @click="drawer = !drawer" v-if="!drawer"
         >mdi-menu</v-icon
       >
+      <v-spacer></v-spacer>
+      <v-img src=".././assets/logo.png" class="mobile_logo ma-4 hidden-sm-and-up" />
     </v-app-bar>
-    <v-navigation-drawer width="400px" v-model="drawer" app>
+    <v-navigation-drawer :permanent="$vuetify.breakpoint.mdAndUp" width="400px" v-model="drawer" app>
       <v-icon
         @click="drawer = !drawer"
-        class="float-right ma-6"
-        v-if="drawer"
+        
+        class="float-right ma-6 hidden-sm-and-up"
+        v-if="drawer === true"
         color="grey"
         >mdi-close</v-icon
       >
@@ -63,7 +66,7 @@
 export default {
   data() {
     return {
-      drawer: true,
+      drawer: null,
       items: [
         { text: "Perfil dos Alunos", icon: "icon_face", to: "/" },
         { text: "Prova de Português", icon: "icon_doc" },
@@ -77,6 +80,7 @@ export default {
       this.$store.dispatch("logout");
     },
   },
+
 };
 </script>
 <style scoped>
@@ -87,6 +91,9 @@ export default {
 }
 .logo {
   max-width: 180px;
+}
+.mobile_logo { 
+    max-width: 60px;
 }
 .highlighted {
   background: #47cdff;

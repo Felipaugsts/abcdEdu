@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import firebase from "firebase";
-import router from '../router/index'
+import router from "../router/index";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -13,40 +13,41 @@ export default new Vuex.Store({
     authsuccess: null,
   },
   getters: {
-    loading (state) {
-      return state.loading
+    loading(state) {
+      return state.loading;
     },
-    success (state) {
-      return state.success
+    success(state) {
+      return state.success;
     },
-    loadedstudents (state) {
-      return state.loadedStudents
+    loadedstudents(state) {
+      return state.loadedStudents;
     },
     authsuccess(state) {
-      return state.authsuccess
+      return state.authsuccess;
     },
     user(state) {
-      return state.user
-    }
+      return state.user;
+    },
   },
   mutations: {
-    setLoading (state, payload) {
-      state.loading = payload
+    setLoading(state, payload) {
+      state.loading = payload;
     },
 
     success_created(state, payload) {
-      state.success = payload
-      setTimeout(function () {
-        state.success = null
-    }.bind(this), 2000)
-      
+      state.success = payload;
+      setTimeout(
+        function () {
+          state.success = null;
+        }.bind(this),
+        2000
+      );
     },
-
 
     SET_USERDATA(state, userData) {
       sessionStorage.setItem("user", JSON.stringify(userData));
       state.user = userData;
-      },
+    },
 
     CLEAR_USER_DATA() {
       sessionStorage.clear();
@@ -55,35 +56,36 @@ export default new Vuex.Store({
     },
 
     AUTH_ERR(state, payload) {
-      state.authsuccess = payload
+      state.authsuccess = payload;
     },
 
-    setLoadedstudents (state, payload) {
-      state.loadedStudents = payload
+    setLoadedstudents(state, payload) {
+      state.loadedStudents = payload;
     },
-
   },
   actions: {
-
     createStudent({ commit }, payload) {
-      commit('setLoading', true)
+      commit("setLoading", true);
       const newStudent = {
         nome: payload.nome,
         escolaridade: payload.escolaridade,
         avatar: payload.avatar,
         escola: payload.escola,
         // creatorId: getters.user.id
-      }
-      firebase.database().ref('Alunos').push(newStudent)
+      };
+      firebase
+        .database()
+        .ref("Alunos")
+        .push(newStudent)
         .then((data) => {
-          const key = data.key
-          console.log("student key", key)
-          commit('setLoading', false)
-          commit('success_created', newStudent)
+          const key = data.key;
+          console.log("student key", key);
+          commit("setLoading", false);
+          commit("success_created", newStudent);
         })
         .catch((error) => {
-          console.log(error)
-        })
+          console.log(error);
+        });
       // Reach out to firebase and store it
     },
 
@@ -104,7 +106,6 @@ export default new Vuex.Store({
               escola: obj[key].escola,
               escolaridade: obj[key].escolaridade,
             });
-            console.log('students', students)
           }
           commit("setLoadedstudents", students);
           commit("setLoading", false);
@@ -116,31 +117,34 @@ export default new Vuex.Store({
     },
 
     signUserIn({ commit }, payload) {
-      console.log(payload[0].email)
+      console.log(payload[0].email);
       commit("setLoading", true);
       firebase
-        .auth().signInWithEmailAndPassword(payload[0].email, payload[0].password)
+        .auth()
+        .signInWithEmailAndPassword(payload[0].email, payload[0].password)
         .then((user) => {
+          const newUser = {
+            id: user.user.uid,
+          };
           commit("setLoading", false);
-          console.log(user)
-          commit('SET_USERDATA', user)
-          router.push('/')
-          commit('AUTH_ERR', false)
+          commit("SET_USERDATA", newUser);
+          router.push("/");
+          commit("AUTH_ERR", false);
         })
         .catch((error) => {
           commit("setLoading", false);
-          commit('AUTH_ERR', true)
+          commit("AUTH_ERR", true);
           console.log(error);
         });
     },
 
-    autoSignIn ({commit}, payload) {
-      commit('SET_USERDATA', {id: payload.uid})
+    autoSignIn({ commit }, payload) {
+      commit("SET_USERDATA", { id: payload.uid });
     },
 
-    logout ({commit}) {
-      firebase.auth().signOut()
-      commit('CLEAR_USER_DATA')
+    logout({ commit }) {
+      firebase.auth().signOut();
+      commit("CLEAR_USER_DATA");
     },
   },
   modules: {},

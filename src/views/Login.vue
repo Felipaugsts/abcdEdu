@@ -66,33 +66,31 @@ export default {
     Login() {
       if (this.$refs.form.validate()) {
         this.loader = true;
-const form = [ {
-  email: this.Email.text,
-  password: this.Senha.text
-}]
-this.$store.dispatch('signUserIn', form)
-
+        const form = [
+          {
+            email: this.Email.text,
+            password: this.Senha.text,
+          },
+        ];
+        this.$store.dispatch("signUserIn", form);
       }
     },
   },
-  computed: { 
-    loading() { 
-      return this.$store.getters.loading
+  computed: {
+    loading() {
+      return this.$store.getters.loading;
     },
-    authsuccess() { 
-      return this.$store.getters.authsuccess
+    authsuccess() {
+      return this.$store.getters.authsuccess;
     },
-    computed: { 
-      user() { 
-       return this.$store.getters.user
-      }
+    user() {
+      return this.$store.getters.user;
     },
-    watch: {
-      user() { 
-        console.log('user', this.user)
-      }
-    }
-    
+  },
+  watch: {
+    user() {
+      console.log("user", this.user);
+    },
   },
 };
 </script>

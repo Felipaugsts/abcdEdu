@@ -129,24 +129,18 @@ export default {
     separarAno(stud) {
       if (stud) {
         if (stud.length > 1) {
-          this.Alunos = stud
+          this.Alunos = stud;
         }
         stud.filter((filter) => {
           if (filter.escolaridade === 1) {
             this.primeiroAno.push(filter);
-            console.log(filter.escolaridade);
           }
           if (filter.escolaridade === 2) {
             this.SegundoAno.push(filter);
-            console.log(filter.escolaridade);
           }
         });
       }
       this.loading = false;
-    },
-
-    filter(i) {
-      console.log("value", i);
     },
   },
   watch: {
@@ -154,9 +148,7 @@ export default {
       if (this.filtering) {
         this.filtereingdata = true;
         const alunos = this.Alunos;
-        console.log("alunos", alunos);
         this.filtered = alunos.filter((filter) => {
-          console.log("ff", filter);
           return filter.nome
             .toLowerCase()
             .includes(this.filtering.toLowerCase());
@@ -165,19 +157,18 @@ export default {
         this.filtereingdata = false;
       }
     },
-    loadedstudents() { 
-      this.separarAno(this.loadedstudents)
-    }
+    loadedstudents() {
+      this.separarAno(this.loadedstudents);
+    },
   },
-  computed: { 
-    loadedstudents() { 
-      return this.$store.getters.loadedstudents
-    }
+  computed: {
+    loadedstudents() {
+      return this.$store.getters.loadedstudents;
+    },
   },
   created() {
-    this.$store.dispatch('loadStudents')
+    this.$store.dispatch("loadStudents");
   },
-
 };
 </script>
 <style scoped src=".././assets/css/textfield.css"></style>

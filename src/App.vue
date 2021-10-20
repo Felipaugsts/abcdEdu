@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Sidebar v-if="this.$store.state.user" />
+    <Sidebar v-if="user" />
     <v-main class="grey lighten-4">
       <router-view />
     </v-main>
@@ -18,6 +18,11 @@ export default {
   }),
   components: {
     Sidebar,
+  },
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    },
   },
 };
 </script>

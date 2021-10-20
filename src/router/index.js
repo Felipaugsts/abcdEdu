@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-
+import firebase from "firebase";
 Vue.use(VueRouter);
 
 const routes = [
@@ -29,11 +29,14 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const loggedIn = sessionStorage.getItem("user");
-
-  if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
-    next("/login");
-  }
+  firebase.auth().onAuthStateChanged((user) => {
+    console.log("router", user);
+    if (to.matched.some((record) => record.meta.requiresAuth) && !user) {
+      next("/login");
+    } else {
+      next();
+    }
+  });
   next();
 });
 

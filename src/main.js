@@ -19,8 +19,6 @@ new Vue({
       if (user) {
         console.log("user signed in");
         this.$store.dispatch("autoSignIn", user);
-      } else {
-        this.store.dispatch("logout");
       }
     });
   },

@@ -87,11 +87,6 @@ export default {
       return this.$store.getters.user;
     },
   },
-  watch: {
-    user() {
-      console.log("user", this.user);
-    },
-  },
 };
 </script>
 <style scoped>
